@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--將所有元件跟view繼承的上層alpha屬性抽出-->
+    <attr name="bv_touch_alpha" format="boolean" />
+    <attr name="bw_touch_alpha" format="boolean" />
+
+
+    <declare-styleable name="MGRoundView">
+        <!--外框顏色, 外框寬度, 開始顏色, 結束顏色, 漸變角度(可輸入 45, 90, 135, 180)-->
+        <attr name="bv_touch_alpha" />
+        <attr name="rv_corner_radius" format="dimension" />
+        <attr name="rv_stroke_clr" format="color" />
+        <attr name="rv_stroke_width" format="dimension" />
+        <attr name="rv_start_clr" format="color" />
+        <attr name="rv_center_clr" format="color" />
+        <attr name="rv_end_clr" format="color" />
+        <attr name="rv_glide_clr" format="color" />
+        <attr name="rv_angle" format="integer" />
+        <attr name="rv_src" format="reference" />
+        <attr name="rv_corner_top_left" format="boolean" />
+        <attr name="rv_corner_top_right" format="boolean" />
+        <attr name="rv_corner_bottom_left" format="boolean" />
+        <attr name="rv_corner_bottom_right" format="boolean" />
+        <attr name="rv_triangle_point" format="string" />
+        <attr name="rv_outer_clr" format="color" />
+        <attr name="rv_text" format="string" />
+        <attr name="rv_text_clr" format="color" />
+        <attr name="rv_text_size" format="dimension" />
+        <attr name="rv_src_type" format="enum" >
+            <!--依照比例, 較大邊填滿-->
+            <enum name="aspect_fit" value="0" />
+            <!--依照比例, 較小邊填滿-->
+            <enum name="aspect_fill" value="1" />
+            <!--拉深到全滿-->
+            <enum name="scale_fill" value="2" />
+        </attr>
+        <attr name="rv_type" format="enum" >
+            <enum name="rect" value="0" />
+            <enum name="circle" value="1" />
+            <enum name="traingle" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="MGBaseView">
+        <attr name="bv_touch_alpha" />
+    </declare-styleable>
+
+    <declare-styleable name="BaseWidget">
+        <attr name="bw_touch_alpha" />
+    </declare-styleable>
+
+    <declare-styleable name="MGMultiIconView">
+        <attr name="bv_touch_alpha" />
+        <attr name="miv_img_hlt" format="reference" />
+        <attr name="miv_img_nor" format="reference" />
+        <attr name="miv_clr_nor" format="color" />
+        <attr name="miv_clr_hlt" format="color" />
+    </declare-styleable>
+
+    <!--&lt;!&ndash;一般廣泛使用的輸入文字元件&ndash;&gt;-->
+    <!--<declare-styleable name="InputWidget">-->
+        <!--<attr name="bw_touch_alpha" />-->
+        <!--<attr name="iw_stroke_clr" format="color" />-->
+        <!--<attr name="iw_stroke_width" format="dimension" />-->
+        <!--<attr name="iw_start_clr" format="color" />-->
+        <!--<attr name="iw_end_clr" format="color" />-->
+        <!--<attr name="iw_angle" format="integer" />-->
+        <!--<attr name="iw_radius" format="dimension" />-->
+        <!--<attr name="iw_place" format="string" />-->
+        <!--<attr name="iw_show_content" format="boolean" />-->
+        <!--<attr name="iw_text_size" format="dimension" />-->
+        <!--<attr name="iw_text_center" format="boolean" />-->
+        <!--<attr name="iw_handle_return_action" format="boolean" />-->
+        <!--<attr name="iw_single_line" format="boolean" />-->
+        <!--<attr name="iw_button_show" format="boolean" />-->
+    <!--</declare-styleable>-->
+
+    <!--一般廣泛使用的輸入文字元件-->
+    <!--<declare-styleable name="Input2Widget">-->
+        <!--<attr name="bw_touch_alpha" />-->
+        <!--<attr name="i2w_place" format="string" />-->
+        <!--<attr name="i2w_title" format="string" />-->
+        <!--<attr name="i2w_block_clr" format="color" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="CircleButtonWidget">-->
+        <!--<attr name="bw_touch_alpha" />-->
+        <!--<attr name="cbw_start_clr" format="color" />-->
+        <!--<attr name="cbw_end_clr" format="color" />-->
+        <!--<attr name="cbw_glide_clr" format="color" />-->
+        <!--<attr name="cbw_title" format="string" />-->
+        <!--<attr name="cbw_src" format="reference" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="StorePreviewWidget">-->
+        <!--<attr name="bw_touch_alpha" />-->
+        <!--<attr name="spw_title" format="string" />-->
+        <!--<attr name="spw_src" format="reference" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="HomeCenterBlockWidget">-->
+        <!--<attr name="bw_touch_alpha" />-->
+        <!--<attr name="hcbw_title" format="string" />-->
+        <!--<attr name="hcbw_src" format="reference" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="IconTextBtnWidget">-->
+        <!--<attr name="bw_touch_alpha" />-->
+        <!--<attr name="itbw_title" format="string" />-->
+        <!--<attr name="itbw_src" format="reference" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="SearchWidget">-->
+
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="RoundButtonWidget">-->
+        <!--<attr name="rbw_text" format="string" />-->
+        <!--<attr name="rbw_text_clr" format="color" />-->
+        <!--<attr name="rbw_radius" format="dimension" />-->
+        <!--<attr name="bw_touch_alpha" />-->
+        <!--<attr name="rbw_stroke_clr" format="color" />-->
+        <!--<attr name="rbw_stroke_width" format="dimension" />-->
+        <!--<attr name="rbw_start_clr" format="color" />-->
+        <!--<attr name="rbw_end_clr" format="color" />-->
+        <!--<attr name="rbw_glide_clr" format="color" />-->
+        <!--<attr name="rbw_angle" format="integer" />-->
+        <!--<attr name="rbw_text_size" format="dimension" />-->
+    <!--</declare-styleable>-->
+
+    <declare-styleable name="MGSortLayout">
+
+        <!--排列情形-->
+        <attr name="sl_sort_increase" format="enum" >
+            <enum name="no" value="0" />
+            <enum name="horizontal" value="1" />
+            <enum name="vertical" value="2" />
+            <enum name="all" value="3" />
+        </attr>
+
+        <attr name="sl_base_horizontal_increase" format="dimension" />
+        <attr name="sl_base_vertical_increase" format="dimension" />
+
+        <!--不顯示的子view, 格式為 2,4,5-->
+        <attr name="sl_hide_sort" format="string" />
+
+        <!--觸摸子view時是否觸發透明-->
+        <attr name="sl_child_alpha" format="boolean" />
+
+    </declare-styleable>
+
+    <!--<declare-styleable name="InputListWidget">-->
+        <!--<attr name="ilw_title" format="string" />-->
+        <!--<attr name="ilw_text" format="string" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="LeaveMessageWidget">-->
+    <!--</declare-styleable>-->
+    <!---->
+    <!--<declare-styleable name="PageBackWidget">-->
+        <!--<attr name="bw_touch_alpha" />-->
+        <!--<attr name="pbw_title" format="string" />-->
+    <!--</declare-styleable>-->
+
+    <!--<declare-styleable name="ListSelectWidget">-->
+        <!--<attr name="bw_touch_alpha" />-->
+        <!--<attr name="lsw_stroke_clr" format="color" />-->
+        <!--<attr name="lsw_start_clr" format="color" />-->
+        <!--<attr name="lsw_end_clr" format="color" />-->
+    <!--</declare-styleable>-->
+    
+    
+    <declare-styleable name="MGCardTextView">
+        <attr name="bw_touch_alpha" />
+        <attr name="ctw_stroke_clr" format="color" />
+        <attr name="ctw_stroke_width" format="dimension" />
+        <attr name="ctw_radius" format="dimension" />
+        <attr name="ctw_start_clr" format="color" />
+        <attr name="ctw_end_clr" format="color" />
+        <attr name="ctw_glide_clr" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MGProportionImageView">
+        <attr name="piv_width_proport" format="integer" />
+        <attr name="piv_height_proport" format="integer" />
+        <attr name="piv_size_default" format="dimension" />
+        <attr name="piv_width_max" format="dimension" />
+        <attr name="piv_height_max" format="dimension" />
+    </declare-styleable>
+
+    <!--日期選擇等級-->
+    <!--0: 日, 1: 分-->
+    <declare-styleable name="DateSelectWidget">
+        <attr name="dsw_level" format="integer" />
+        <attr name="dsw_format" format="string" />
+    </declare-styleable>
+
+</resources>
+
+
+
+
+
+
