@@ -3,6 +3,7 @@ package org.magicalwater.mgkotlin.mgviewskt.view
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ScrollView
+import org.magicalwater.mgkotlin.mgviewskt.R
 
 /**
  * Created by magicalwater on 2018/1/4.
@@ -11,8 +12,12 @@ import android.widget.ScrollView
 open class MGObservableScrollView: ScrollView {
 
     constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        settingStyleArray(attrs)
+    }
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        if (attrs != null) settingStyleArray(attrs)
+    }
 
     //現在是否在最頂端
     private var mIsScrolledToTop: Boolean = true
@@ -21,7 +26,7 @@ open class MGObservableScrollView: ScrollView {
     private var mIsScrolledToBottom: Boolean = false
 
     //當滑動距離超出此數值, 則觸發監聽
-    private var mDistanceDetect: Int = 0
+    var mDistanceDetect: Int = 0
 
     //紀錄上次滑動到的y軸為置, 方便監聽超出數值
     private var mLastScrollY: Int = 0
@@ -32,6 +37,10 @@ open class MGObservableScrollView: ScrollView {
     var mNowPos: ScrollPos = ScrollPos.TOP
     var scrollDelegate: ObservableScrollDelegate? = null
 
+    private fun settingStyleArray(attrs: AttributeSet) {
+        val styleArray = context.obtainStyledAttributes(attrs, R.styleable.MGObservableScrollView)
+        mDistanceDetect = styleArray.getDimensionPixelSize(R.styleable.MGObservableScrollView_bsv_detect, mDistanceDetect)
+    }
 
     /**
      * @param scrollX - 距離原點的 x 軸距離

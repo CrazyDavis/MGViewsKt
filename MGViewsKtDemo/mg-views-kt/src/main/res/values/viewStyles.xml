@@ -189,11 +189,8 @@
         <attr name="piv_height_max" format="dimension" />
     </declare-styleable>
 
-    <!--日期選擇等級-->
-    <!--0: 日, 1: 分-->
-    <declare-styleable name="DateSelectWidget">
-        <attr name="dsw_level" format="integer" />
-        <attr name="dsw_format" format="string" />
+    <declare-styleable name="MGObservableScrollView">
+        <attr name="bsv_detect" format="dimension" />
     </declare-styleable>
 
 </resources>
