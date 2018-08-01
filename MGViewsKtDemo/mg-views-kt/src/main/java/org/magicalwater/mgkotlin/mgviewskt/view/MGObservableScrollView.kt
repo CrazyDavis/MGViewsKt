@@ -51,6 +51,7 @@ open class MGObservableScrollView: ScrollView {
     override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
         mDistanceDetect += scrollY - mLastScrollY
+        mLastScrollY = scrollY
         if (scrollY == 0) {
             mIsScrolledToTop = clampedY
             mIsScrolledToBottom = false

@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 9
-        versionName "0.0.9"
+        versionCode 10
+        versionName "0.1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -58,7 +58,7 @@ publish{
     userOrg = 'water'//bintray.com用戶名
     groupId = 'org.mgwater.mgbase'//jcenter上的路徑
     artifactId = 'mg-views-kt'//項目名稱
-    publishVersion = '0.0.9'//版本
+    publishVersion = '0.1.0'//版本
     desc = 'All View For Kotlin'//描述，不重要
     website = siteUrl//項目主頁
 }
