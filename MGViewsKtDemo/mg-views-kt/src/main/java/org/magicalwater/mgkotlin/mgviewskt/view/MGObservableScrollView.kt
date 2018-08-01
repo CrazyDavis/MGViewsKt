@@ -2,8 +2,6 @@ package org.magicalwater.mgkotlin.mgviewskt.view
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.MotionEvent
-import android.view.ViewConfiguration
 import android.widget.ScrollView
 
 /**
@@ -16,82 +14,114 @@ open class MGObservableScrollView: ScrollView {
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
+    //現在是否在最頂端
+    private var mIsScrolledToTop: Boolean = true
 
-    private var isScrolledToTop: Boolean = true // 初始化的时候设置一下值
-    private var isScrolledToBottom: Boolean = false
+    //是否在
+    private var mIsScrolledToBottom: Boolean = false
 
-    var nowPos: ScrollPos = ScrollPos.TOP
+    //當滑動距離超出此數值, 則觸發監聽
+    private var mDistanceDetect: Int = 0
 
-    var scrollDelegate: ObserableScrollDelegate? = null
+    //紀錄上次滑動到的y軸為置, 方便監聽超出數值
+    private var mLastScrollY: Int = 0
+
+    //當前滑動距離
+    private var mNowDistance: Int = 0
+
+    var mNowPos: ScrollPos = ScrollPos.TOP
+    var scrollDelegate: ObservableScrollDelegate? = null
 
 
+    /**
+     * @param scrollX - 距離原點的 x 軸距離
+     * @param scrollY - 距離原點的 y 軸距離
+     * @param clampedX - 滑動到左側邊界時為 true
+     * @param clampedY - 滑動道下方邊界時為 true
+     * */
     override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
+        mDistanceDetect += scrollY - mLastScrollY
         if (scrollY == 0) {
-            isScrolledToTop = clampedY
-            isScrolledToBottom = false
+            mIsScrolledToTop = clampedY
+            mIsScrolledToBottom = false
         } else {
-            isScrolledToTop = false
-            isScrolledToBottom = clampedY
+            mIsScrolledToTop = false
+            mIsScrolledToBottom = clampedY
         }
         notifyScrollChangedListeners()
     }
 
-
+    /**
+     * 注意:
+     *     getScrollY()得到的不是絕對正確的, 有可能會超出邊界, 接著會自行逐漸恢復到正確的值，可能會導致判斷失敗
+     * @param l - 變化後 x 軸的位置
+     * @param t - 變化後 y 軸的位置
+     * @param oldl - 原先 x 軸的位置
+     * @param oldt - 原先 y 軸的位置
+     * */
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)
-        if (android.os.Build.VERSION.SDK_INT < 9) {  // API 9及之后走onOverScrolled方法监听
+        if (android.os.Build.VERSION.SDK_INT < 9) {  // API 9以上走onOverScrolled
+            mNowDistance += t - oldt
             when {
-                scrollY == 0 -> {    // 小心踩坑1: 这里不能是getScrollY() <= 0
-                    isScrolledToTop = true
-                    isScrolledToBottom = false
+                scrollY == 0 -> {
+                    //注意: 这里不能是 scrollY <= 0
+                    mIsScrolledToTop = true
+                    mIsScrolledToBottom = false
                 }
                 scrollY + height - paddingTop - paddingBottom == getChildAt(0).height -> {
-                    // 小心踩坑2: 这里不能是 >=
-                    // 小心踩坑3（可能忽视的细节2）：这里最容易忽视的就是ScrollView上下的padding　
-                    isScrolledToBottom = true
-                    isScrolledToTop = false
+                    // 注意: 这里不能是 >=
+                    // 注意：要加入上下的padding
+                    mIsScrolledToBottom = true
+                    mIsScrolledToTop = false
                 }
                 else -> {
-                    isScrolledToTop = false
-                    isScrolledToBottom = false
+                    mIsScrolledToTop = false
+                    mIsScrolledToBottom = false
                 }
             }
             notifyScrollChangedListeners()
         }
-        // 有时候写代码习惯了，为了兼容一些边界奇葩情况，上面的代码就会写成<=,>=的情况，结果就出bug了
-        // 我写的时候写成这样：getScrollY() + getHeight() >= getChildAt(0).getHeight()
-        // 结果发现快滑动到底部但是还没到时，会发现上面的条件成立了，导致判断错误
-        // 原因：getScrollY()值不是绝对靠谱的，它会超过边界值，但是它自己会恢复正确，导致上面的计算条件不成立
-        // 仔细想想也感觉想得通，系统的ScrollView在处理滚动的时候动态计算那个scrollY的时候也会出现超过边界再修正的情况
     }
 
 
     private fun notifyScrollChangedListeners() {
         val pos: ScrollPos = when {
-            isScrolledToTop -> ScrollPos.TOP
-            isScrolledToBottom -> ScrollPos.BOTTOM
+            mIsScrolledToTop -> ScrollPos.TOP
+            mIsScrolledToBottom -> ScrollPos.BOTTOM
             else -> ScrollPos.BODY
         }
 
         scrollDelegate?.onScrolling(scrollX, scrollY)
 
-        if (nowPos != pos) {
-            nowPos = pos
-            scrollDelegate?.onScrollPos(nowPos)
+        if (mNowPos != pos) {
+            mNowPos = pos
+            scrollDelegate?.onScrollPos(mNowPos)
+        }
+
+        if (Math.abs(mNowDistance) >= mDistanceDetect) {
+            scrollDelegate?.onScrollDistanceDetect(
+                    if (mNowDistance >= 0) ScrollDirection.DOWN
+                    else ScrollDirection.UP
+            )
+            mNowDistance = 0
         }
     }
 
-
     //監聽滑動事件: 最底部, 滑動距離
-    interface ObserableScrollDelegate {
-        fun onScrollPos(pos: ScrollPos)
-        fun onScrolling(scrollX: Int, scrollY: Int)
+    interface ObservableScrollDelegate {
+        fun onScrollPos(pos: ScrollPos) {}
+        fun onScrolling(scrollX: Int, scrollY: Int) {}
+        fun onScrollDistanceDetect(direction: ScrollDirection) {}
     }
-
 
     //只對滑動到頂部, 身體, 底部坐回傳
     enum class ScrollPos {
         TOP, BODY, BOTTOM
+    }
+
+    enum class ScrollDirection {
+        UP, DOWN
     }
 }
