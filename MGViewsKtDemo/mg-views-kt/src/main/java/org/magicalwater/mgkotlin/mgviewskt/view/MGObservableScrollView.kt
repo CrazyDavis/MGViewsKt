@@ -3,6 +3,7 @@ package org.magicalwater.mgkotlin.mgviewskt.view
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ScrollView
+import org.jetbrains.anko.bottomPadding
 import org.magicalwater.mgkotlin.mgviewskt.R
 
 /**
@@ -43,6 +44,8 @@ open class MGObservableScrollView: ScrollView {
     }
 
     /**
+     * getScrollY()得到的不是絕對正確的, 有可能會超出邊界, 接著會自行逐漸恢復到正確的值，可能會導致判斷失敗
+     * 因此這邊超出邊界的可能直接不處理
      * @param scrollX - 距離原點的 x 軸距離
      * @param scrollY - 距離原點的 y 軸距離
      * @param clampedX - 滑動到左側邊界時為 true
@@ -50,14 +53,28 @@ open class MGObservableScrollView: ScrollView {
      * */
     override fun onOverScrolled(scrollX: Int, scrollY: Int, clampedX: Boolean, clampedY: Boolean) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY)
-        mDistanceDetect += scrollY - mLastScrollY
+        if (scrollY < 0) {
+            return
+        }
+        val maxRange = getScrollMaxRange()
+        if (scrollY > maxRange) {
+            return
+        }
+        mNowDistance += scrollY - mLastScrollY
         mLastScrollY = scrollY
-        if (scrollY == 0) {
-            mIsScrolledToTop = clampedY
-            mIsScrolledToBottom = false
-        } else {
-            mIsScrolledToTop = false
-            mIsScrolledToBottom = clampedY
+        when (scrollY) {
+            0 -> {
+                mIsScrolledToTop = true
+                mIsScrolledToBottom = false
+            }
+            maxRange -> {
+                mIsScrolledToTop = false
+                mIsScrolledToBottom = true
+            }
+            else -> {
+                mIsScrolledToTop = false
+                mIsScrolledToBottom = false
+            }
         }
         notifyScrollChangedListeners()
     }
@@ -117,6 +134,16 @@ open class MGObservableScrollView: ScrollView {
             )
             mNowDistance = 0
         }
+    }
+
+    //得到可滑動的最大距離
+    private fun getScrollMaxRange(): Int {
+        var scrollRange = 0
+        if (childCount > 0) {
+            val child = getChildAt(0)
+            scrollRange = Math.max(0, child.height - (height - bottomPadding - paddingTop))
+        }
+        return scrollRange
     }
 
     //監聽滑動事件: 最底部, 滑動距離
