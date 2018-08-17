@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 28
-        versionCode 13
-        versionName "0.1.3"
+        versionCode 14
+        versionName "0.1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -33,7 +33,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //kotlin 當中的 anko
     implementation "org.jetbrains.anko:anko:$anko_version"
@@ -42,7 +42,7 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:3.8.0'
 
-    implementation 'org.mgwater.mgbase:mg-utils-kt:0.0.3'
+    implementation 'org.mgwater.mgbase:mg-utils-kt:0.1.1'
 }
 
 /**以下是bintray上傳相關資訊*/
@@ -57,7 +57,7 @@ publish{
     userOrg = 'water'//bintray.com用戶名
     groupId = 'org.mgwater.mgbase'//jcenter上的路徑
     artifactId = 'mg-views-kt'//項目名稱
-    publishVersion = '0.1.3'//版本
+    publishVersion = '0.1.4'//版本
     desc = 'All View For Kotlin'//描述，不重要
     website = siteUrl//項目主頁
 }

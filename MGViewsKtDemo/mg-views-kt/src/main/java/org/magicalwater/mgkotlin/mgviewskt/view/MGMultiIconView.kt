@@ -33,7 +33,7 @@ open class MGMultiIconView : MGBaseView {
             field = value
             when (value) {
                 null -> mHltImg = null
-                else -> MGImgLoadUtils.load(context, value, null, null, ::setHltBmp)
+                else -> MGImgLoadUtils.loadBitmap(context, value, handler = ::setHltBmp)
             }
         }
     var mImgIdNor: Int? = null
@@ -41,7 +41,7 @@ open class MGMultiIconView : MGBaseView {
             field = value
             when (value) {
                 null -> mNorImg = null
-                else -> MGImgLoadUtils.load(context, value, null, null, ::setNorBmp)
+                else -> MGImgLoadUtils.loadBitmap(context, value, handler = ::setNorBmp)
             }
         }
 

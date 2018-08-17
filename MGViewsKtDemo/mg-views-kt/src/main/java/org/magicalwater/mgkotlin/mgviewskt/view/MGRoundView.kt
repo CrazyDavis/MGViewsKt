@@ -90,7 +90,7 @@ open class MGRoundView: MGBaseView {
         field = value
         when (value) {
             null -> mContentImg = null
-            else -> MGImgLoadUtils.load(context, value, null, null, ::setContent)
+            else -> MGImgLoadUtils.loadBitmap(context, value, handler = ::setContent)
         }
     }
 
