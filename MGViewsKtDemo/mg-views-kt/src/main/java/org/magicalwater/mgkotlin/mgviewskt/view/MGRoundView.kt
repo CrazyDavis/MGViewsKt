@@ -198,6 +198,7 @@ open class MGRoundView: MGBaseView {
             mText = style.getString(R.styleable.MGRoundView_rv_text) ?: mText
             mTextSize = style.getDimension(R.styleable.MGRoundView_rv_text_size, mTextSize)
             mTextClr = style.getColor(R.styleable.MGRoundView_rv_text_clr, mTextClr)
+            trianglePoint = style.getString(R.styleable.MGRoundView_rv_triangle_point) ?: trianglePoint
             val glideColor = style.getColor(R.styleable.MGRoundView_rv_glide_clr)
             if (glideColor != null) {
                 mGlideColor = glideColor

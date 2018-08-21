@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <org.magicalwater.mgkotlin.mgviewskt.view.MGRoundView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="20dp"
+        app:rv_type="triangle"
+        app:rv_triangle_point="1,3,5"
+        app:rv_glide_clr="#000000"/>
 
     <org.magicalwater.mgkotlin.mgviewskt.view.MGObservableScrollView
         android:layout_width="match_parent"
@@ -60,4 +69,4 @@
         </LinearLayout>
     </org.magicalwater.mgkotlin.mgviewskt.view.MGObservableScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
