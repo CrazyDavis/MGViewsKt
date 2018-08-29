@@ -5,6 +5,7 @@
 所有的通用View  
 
 ## 版本  
+0.1.7 - 加入MGLoadingView  
 0.1.6 - 修正MGRoundView設置三角型參數沒有作用  
 0.1.5 - 修正MGRoundView裡三角形屬性名稱拼錯   
 0.1.4 - 修正因依賴 mg-utils-kt 的庫 更新後造成的圖片讀取失敗
